@@ -330,29 +330,29 @@ class uint8(vs_bases.v_int):
     '''
     Unsigned 8 bit integer type
     '''
-    def __init__(self, valu=0, endian='little'):
-        vs_bases.v_int.__init__(self, valu=valu, size=1, endian=endian)
+    def __init__(self, valu=0, endian='little', enum=None):
+        vs_bases.v_int.__init__(self, valu=valu, size=1, endian=endian, enum=enum)
 
 class uint16(vs_bases.v_int):
     '''
     Unsigned 16 bit integer type
     '''
-    def __init__(self, valu=0, endian='little'):
-        vs_bases.v_int.__init__(self, valu=valu, size=2, endian=endian)
+    def __init__(self, valu=0, endian='little', enum=None):
+        vs_bases.v_int.__init__(self, valu=valu, size=2, endian=endian, enum=enum)
 
 class uint32(vs_bases.v_int):
     '''
     Unsigned 32 bit integer type
     '''
-    def __init__(self, valu=0, endian='little'):
-        vs_bases.v_int.__init__(self, valu=valu, size=4, endian=endian)
+    def __init__(self, valu=0, endian='little', enum=None):
+        vs_bases.v_int.__init__(self, valu=valu, size=4, endian=endian, enum=enum)
 
 class uint64(vs_bases.v_int):
     '''
     Unsigned 64 bit integer type
     '''
-    def __init__(self, valu=0, endian='little'):
-        vs_bases.v_int.__init__(self, valu=valu, size=8, endian=endian)
+    def __init__(self, valu=0, endian='little', enum=None):
+        vs_bases.v_int.__init__(self, valu=valu, size=8, endian=endian, enum=enum)
 
 class ptr32(vs_bases.v_int):
     def __init__(self, valu=0, endian='little'):
@@ -381,3 +381,35 @@ def varray(size, cls, *args, **kwargs):
     name = '%s_Array_%d' % (cls.__name__,size)
     return type(name,(VArray,),{'__init__':clsinit})
 
+class venum(object):
+    '''
+    A venum class is used to define a set of enumeration values.
+
+    Example:
+
+        foo = venum()
+        foo.TYPE_1  = 1
+        foo.TYPE_2  = 2
+
+        class woot(VStruct):
+            def __init__(self):
+                self.y = uint16(enum=foo)
+
+        # foo[2] -> 'TYPE_2'
+        # foo['TYPE_2'] -> 2
+
+    Notes:
+
+        * provide as enum param to int ctors for auto-repr
+
+    '''
+    def __init__(self):
+        object.__setattr__(self, '_vs_enum_map', {})
+
+    def __setattr__(self, name, valu):
+        self._vs_enum_map[valu] = name
+        self._vs_enum_map[name] = valu
+        return object.__setattr__(self, name, valu)
+
+    def __getitem__(self, item):
+        return self._vs_enum_map.get(item)

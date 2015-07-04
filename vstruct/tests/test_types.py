@@ -124,3 +124,26 @@ class TypesTest(unittest.TestCase):
 
         self.assertEqual( fd.read(), b'\xffRRRabcd\x00VV')
 
+    def test_vstruct_enum(self):
+
+        foo = venum()
+        foo.one = 1
+        foo.two = 2
+
+        class Bar(VStruct):
+            def __init__(self):
+                VStruct.__init__(self)
+                self.baz = uint16(enum=foo)
+
+        bar = Bar()
+        bar.baz = 2
+
+        self.assertEqual( repr(bar['baz']), 'two')
+
+        self.assertEqual( foo.one, 1 )
+        self.assertEqual( foo.two, 2 )
+
+        self.assertEqual( foo[1], 'one')
+        self.assertEqual( foo[2], 'two')
+        self.assertEqual( foo['one'], 1 )
+        self.assertEqual( foo['two'], 2 )

@@ -58,6 +58,9 @@ class v_prim(v_base):
         self._vs_backbytes = None
         self._vs_writeback = False
 
+    def __repr__(self):
+        return repr(self._prim_getval())
+
     def vsParse(self, bytez, offset=0, writeback=False):
         '''
         Byte parsing method for VStruct primitives.
@@ -138,13 +141,22 @@ class v_prim(v_base):
 
 class v_int(v_prim):
 
-    def __init__(self,valu=0,size=4,endian='little',signed=False):
+    def __init__(self,valu=0,size=4,endian='little',signed=False,enum=None):
         v_prim.__init__(self,valu=valu,size=size)
+        self._vs_enum = enum
         self._vs_endian = endian
         self._vs_signed = signed
 
     def __int__(self):
         return self._prim_getval()
+
+    def __repr__(self):
+        valu = self._prim_getval()
+        if self._vs_enum != None:
+            enum = self._vs_enum[valu]
+            if enum != None:
+                return enum
+        return repr(valu)
 
     def vsResize(self, size):
         self._vs_bits = size * 8
