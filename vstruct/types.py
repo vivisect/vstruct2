@@ -47,6 +47,7 @@ class VStruct(vs_bases.v_base,object):
 
     def __init__(self, align=0):
         vs_bases.v_base.__init__(self)
+        self._vs_endian = None
         self._vs_isprim = False
 
         self._vs_fields = {}
@@ -131,6 +132,10 @@ class VStruct(vs_bases.v_base,object):
     def __setattr__(self, name, valu):
         if name.startswith('_vs_'):
             return super(VStruct,self).__setattr__(name,valu)
+
+        # check for endian-ness override
+        if self._vs_endian and isinstance(valu,vs_bases.v_int):
+            valu._vs_endian = self._vs_endian
 
         if isinstance(valu,vs_bases.v_base):
             field = self._vs_fields.get(name)

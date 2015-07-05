@@ -147,3 +147,17 @@ class TypesTest(unittest.TestCase):
         self.assertEqual( foo[2], 'two')
         self.assertEqual( foo['one'], 1 )
         self.assertEqual( foo['two'], 2 )
+
+    def test_vstruct_endian(self):
+
+        class Foo(VStruct):
+            def __init__(self):
+                VStruct.__init__(self)
+                self._vs_endian = 'big'
+                self.bar    = uint16()
+                self.baz    = uint32()
+
+        foo = Foo()
+        foo.vsParse(b'\x01\x02\x03\x04\x05\x06')
+        self.assertEqual( foo.bar, 0x0102 )
+        self.assertEqual( foo.baz, 0x03040506 )
