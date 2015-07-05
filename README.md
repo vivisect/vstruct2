@@ -1,6 +1,15 @@
-# vstruct
+# vstruct ( Mark II )
 Vivisect Structure Definition/Parsing Library
 [![Build Status](https://travis-ci.org/vivisect/vstruct.svg)](https://travis-ci.org/vivisect/vstruct)
+
+# Installing
+```
+python3.4 -m pip install vstruct
+```
+vstruct (version 2) can now be installed via pip!
+
+Additionally, a repository of existing structure definitions
+is available as a seperate package named fracture.
 
 # Examples
 
