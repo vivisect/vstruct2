@@ -173,6 +173,9 @@ class VArray(VStruct):
             self[i] = f
 
 class vbytes(vs_bases.v_prim):
+    '''
+    Fixed width binary bytes field.
+    '''
     def __init__(self, size=0):
         vs_bases.v_prim.__init__(self, size=size, valu=b'')
 
@@ -187,7 +190,7 @@ class vbytes(vs_bases.v_prim):
 
 class cstr(vs_bases.v_prim):
     '''
-    Fixed byte width string type.
+    Fixed width string type.
 
     Assignments will be NULL padded to match size.
 
