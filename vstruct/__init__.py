@@ -4,4 +4,4 @@ Vivisect Structure Definition/Parsing Library
 https://github.com/vivisect/vstruct
 
 '''
-version = (0,0,1)
+version = (2,0,2)

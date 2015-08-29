@@ -85,6 +85,19 @@ class VStruct(vs_bases.v_base,object):
         self._fire_onset()
         return retoff
 
+    def vsPrint(self, indent=0, addr=0):
+        off = 0
+        pad = ' ' * indent
+
+        print('%.8x: %s%s' % (addr,pad,self.__class__.__name__))
+        for name,field in self:
+            typename = field.__class__.__name__
+            print( '%.8x: %s%s %s = %s (%s)' % (addr+off,pad,typename,name,field._prim_getval(),repr(field)) )
+            if not field._vs_isprim:
+                field.vsPrint(indent=indent+2,addr=addr+off)
+
+            off += len(field)
+
     def _vs_prims(self):
         # recursive primitive *yielder* ( allows resizing while yielding )
         for name in self._vs_fieldorder:

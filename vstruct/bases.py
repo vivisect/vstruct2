@@ -1,4 +1,5 @@
 import traceback
+from vstruct.compat import int2bytes, bytes2int
 
 # This routine was coppied from vivisect to allow vstruct
 # to be free from dependencies
@@ -163,10 +164,10 @@ class v_int(v_prim):
         return v_prim.vsResize(self,size)
 
     def _prim_emit(self,x):
-        return x.to_bytes(self._vs_size,byteorder=self._vs_endian)
+        return int2bytes(x, self._vs_size, byteorder=self._vs_endian, signed=self._vs_signed)
 
     def _prim_norm(self,x):
         return bitmask(x,self._vs_bits)
 
-    def _prim_parse(self, bytez, offset):
-        return int.from_bytes(bytez[offset:offset+self._vs_size],byteorder=self._vs_endian,signed=self._vs_signed)
+    def _prim_parse(self, byts, offset):
+        return bytes2int(byts, self._vs_size, byteorder=self._vs_endian, signed=self._vs_signed, off=offset)

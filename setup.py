@@ -16,7 +16,7 @@ from setuptools import setup,find_packages
 
 setup(
     name='vstruct',
-    version='2.0.1',
+    version='2.0.2',
     description='Vivisect Structure Definition/Parsing Library',
     author='Invisigoth Kenshoto',
     author_email='invisigoth.kenshoto@gmail.com',
@@ -29,8 +29,7 @@ setup(
         'Development Status :: 5 - Production/Stable',
         'License :: OSI Approved :: Apache Software License',
         'Programming Language :: Python :: 3.4',
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3 :: Only',
+        'Programming Language :: Python :: 2.7',
     ],
 
 )
