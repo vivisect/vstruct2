@@ -43,7 +43,8 @@ if version < (3,0,0):
         Mostly for pulling immediates out of strings...
         """
         if size > 8:
-            return slowparsebytes(bytes, offset, size, sign=sign, bigend=bigend)
+            bigend = byteorder == 'big'
+            return slowparsebytes(byts, off, size, sign=signed, bigend=bigend)
 
         fmt = fmtchars.get( (size,byteorder,signed) )
         if fmt != None:
