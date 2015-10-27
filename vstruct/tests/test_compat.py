@@ -11,6 +11,9 @@ class CompatTest(unittest.TestCase):
 
         self.assertEqual( bytes2int(b'\xff\xff\xff\xff', 4, signed=True), -1 )
         self.assertEqual( bytes2int(b'\xff\xff\xff\xff', 4, signed=False), 0xffffffff )
+        
+        self.assertEqual( bytes2int(b'\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff', 12, signed=True), -1 )
+        self.assertEqual( bytes2int(b'\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff', 12, signed=False), 0xffffffff )
 
     def test_compat_i2b(self):
 
