@@ -60,9 +60,9 @@ if version < (3,0,0):
             x = (x - u_maxes[size]) - 1
         return x
     
-    def slowparsebytes(bytes, offset, size, sign=False, bigend=False):
+    def slowparsebytes(bytes, offset, size, sign=False, byteorder='little'):
         ''' Stolen from vivisect/envi/bits.py to keep vstruct dependency free. '''
-        if bigend:
+        if byteorder == 'big':
             begin = offset
             inc = 1
         else:
@@ -84,8 +84,7 @@ if version < (3,0,0):
         Mostly for pulling immediates out of strings...
         """
         if size > 8:
-            bigend = byteorder == 'big'
-            return slowparsebytes(byts, off, size, sign=signed, bigend=bigend)
+            return slowparsebytes(byts, off, size, sign=signed, byteorder=byteorder)
 
         fmt = fmtchars.get( (size,byteorder,signed) )
         if fmt != None:
