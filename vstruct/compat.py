@@ -37,6 +37,47 @@ if version < (3,0,0):
         (8,'big',True):'>q',
         (8,'little',True):'<q',
     }
+    
+    ''' Stolen from vivisect/envi/bits.py to keep vstruct dependency free. '''
+    MAX_WORD = 32 # usually no more than 8, 16 is for SIMD register support
+
+    # Masks to use for unsigned anding to size
+    u_maxes = [ (2 ** (8*i)) - 1 for i in range(MAX_WORD+1) ]
+    u_maxes[0] = 0 # powers of 0 are 1, but we need 0
+
+    # Masks of just the sign bit for different sizes
+    sign_bits = [ (2 ** (8*i)) >> 1 for i in range(MAX_WORD+1) ]
+    sign_bits[0] = 0 # powers of 0 are 1, but we need 0
+
+    def unsigned(value, size):
+        ''' Stolen from vivisect/envi/bits.py to keep vstruct dependency free. '''
+        return value & u_maxes[size]
+
+    def signed(value, size):
+        ''' Stolen from vivisect/envi/bits.py to keep vstruct dependency free. '''
+        x = unsigned(value, size)
+        if x & sign_bits[size]:
+            x = (x - u_maxes[size]) - 1
+        return x
+    
+    def slowparsebytes(bytes, offset, size, sign=False, bigend=False):
+        ''' Stolen from vivisect/envi/bits.py to keep vstruct dependency free. '''
+        if bigend:
+            begin = offset
+            inc = 1
+        else:
+            begin = offset + (size-1)
+            inc = -1
+
+        ret = 0
+        ioff = 0
+        for x in range(size):
+            ret = ret << 8
+            ret |= ord(bytes[begin+ioff])
+            ioff += inc
+        if sign:
+            ret = signed(ret, size)
+        return ret
 
     def bytes2int(byts, size, off=0, byteorder='little', signed=False):
         """
