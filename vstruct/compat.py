@@ -60,7 +60,7 @@ if version < (3,0,0):
             x = (x - u_maxes[size]) - 1
         return x
     
-    def slowparsebytes(bytes, offset, size, sign=False, byteorder='little'):
+    def slowparsebytes(byts, offset, size, sign=False, byteorder='little'):
         ''' Stolen from vivisect/envi/bits.py to keep vstruct dependency free. '''
         if byteorder == 'big':
             begin = offset
@@ -73,7 +73,7 @@ if version < (3,0,0):
         ioff = 0
         for x in range(size):
             ret = ret << 8
-            ret |= ord(bytes[begin+ioff])
+            ret |= ord(byts[begin+ioff])
             ioff += inc
         if sign:
             ret = signed(ret, size)
