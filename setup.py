@@ -1,5 +1,9 @@
 #!/usr/bin/env python
 #from distutils.core import setup
+
+import io
+import os
+
 from setuptools import setup,find_packages
 
 # For Testing:
@@ -14,10 +18,17 @@ from setuptools import setup,find_packages
 # python3.4 setup.py bdist_wheel upload
 # python3.4 -m pip install
 
+here = os.path.dirname(__file__)
+
+def read(fname, encoding='utf-8'):
+    with io.open(os.path.join(here, fname), encoding=encoding) as f:
+        return f.read()
+
 setup(
     name='vstruct',
     version='2.0.2',
     description='Vivisect Structure Definition/Parsing Library',
+    long_description=read('README.rst'),
     author='Invisigoth Kenshoto',
     author_email='invisigoth.kenshoto@gmail.com',
     url='https://github.com/vivisect/vstruct',
