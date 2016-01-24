@@ -75,3 +75,10 @@ if foo.bar == 30:
 
 ## Enum Types
 
+
+# Builds
+## Travis-Ci ( Linux: py-2.7 / py-3.4 )
+[![Build Status](https://travis-ci.org/vivisect/vstruct.svg)](https://travis-ci.org/vivisect/vstruct)
+## AppVeyor ( Windows: py-2.7 / py-3.4 )
+[![Build Status](https://ci.appveyor.com/api/projects/status/github/vivisect/vstruct?branch=master&svg=true)](https://ci.appveyor.com/project/vivisect/vstruct/)
+
