@@ -198,7 +198,7 @@ class vbytes(vs_bases.v_prim):
         vs_bases.v_prim.__init__(self, size=size, valu=b'')
 
     def _prim_emit(self, x):
-        return x
+        return x.ljust(self.vsSize(), b'\x00')
 
     def _prim_norm(self, x):
         return bytes(x)
