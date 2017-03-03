@@ -3,3 +3,6 @@
 *.py~
 .hg*
 __pycache__
+build
+dist
+vstruct2.egg-info

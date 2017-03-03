@@ -25,13 +25,13 @@ def read(fname, encoding='utf-8'):
         return f.read()
 
 setup(
-    name='vstruct',
+    name='vstruct2',
     version='2.0.2',
     description='Vivisect Structure Definition/Parsing Library',
     long_description=read('README.rst'),
     author='Invisigoth Kenshoto',
     author_email='visi@vertex.link',
-    url='https://github.com/vivisect/vstruct',
+    url='https://github.com/vivisect/vstruct2',
     license='Apache License 2.0',
 
     packages=find_packages(exclude=['*.tests','*.tests.*']),
