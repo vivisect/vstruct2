@@ -4,7 +4,7 @@ import codecs
 from . import bases as vs_bases
 
 # NOTE: keep this namespace super clean so it's safe to
-#       use this via "from vstruct.types import *"
+#       use this via "from vstruct2.types import *"
 
 '''
 VStruct types module contains a standard set of working field types

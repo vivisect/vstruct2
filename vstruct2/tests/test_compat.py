@@ -1,6 +1,6 @@
 import unittest
 
-from vstruct.compat import *
+from vstruct2.compat import *
 
 class CompatTest(unittest.TestCase):
 

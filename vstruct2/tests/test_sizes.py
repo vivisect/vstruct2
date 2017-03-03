@@ -1,8 +1,7 @@
 import unittest
 
-from vstruct.bases import *
-from vstruct.types import *
-
+from vstruct2.bases import *
+from vstruct2.types import *
 
 class SizesTest(unittest.TestCase):
 

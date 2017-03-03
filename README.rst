@@ -1,4 +1,4 @@
-vstruct ( Mark II )
+vstruct2 ( Mark II )
 ===================
 
 Vivisect Structure Definition/Parsing Library
@@ -9,9 +9,9 @@ Installing
 
 .. code::
 
-    python3.4 -m pip install vstruct
+    python3.4 -m pip install vstruct2
 
-vstruct (version 2) can now be installed via pip!
+vstruct2 can now be installed via pip!
 
 Additionally, a repository of existing structure definitions
 is available as a seperate package named fracture.
@@ -22,11 +22,11 @@ Examples
 Basic Parsing
 -------------
 
-Simple vstruct byte parsing:
+Simple vstruct2 byte parsing:
 
 .. code:: python
 
-    from vstruct.types import *
+    from vstruct2.types import *
 
     class Foo(VStruct):
 
@@ -57,7 +57,7 @@ Parser Callbacks
 WriteBack Bytes/Files
 ---------------------
 
-vstruct supports "writeback" functionality for both files and mutable
+vstruct2 supports "writeback" functionality for both files and mutable
 bytearray types, allowing field assignments to change the underlying file
 or bytearray immediately.
 
@@ -85,5 +85,5 @@ or bytearray immediately.
 Enum Types
 ----------
 
-.. |Build Status| image:: https://travis-ci.org/vivisect/vstruct.svg
-   :target: https://travis-ci.org/vivisect/vstruct
+.. |Build Status| image:: https://travis-ci.org/vivisect/vstruct2.svg
+   :target: https://travis-ci.org/vivisect/vstruct2

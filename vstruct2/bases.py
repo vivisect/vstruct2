@@ -1,5 +1,5 @@
 import traceback
-from vstruct.compat import int2bytes, bytes2int
+from vstruct2.compat import int2bytes, bytes2int
 
 # This routine was coppied from vivisect to allow vstruct
 # to be free from dependencies
