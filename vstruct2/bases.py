@@ -62,6 +62,9 @@ class v_prim(v_base):
     def __repr__(self):
         return repr(self._prim_getval())
 
+    def vsGetTypeName(self):
+        return self.__class__.__name__
+
     def vsParse(self, bytez, offset=0, writeback=False):
         '''
         Byte parsing method for VStruct primitives.
