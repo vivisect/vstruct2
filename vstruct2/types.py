@@ -53,6 +53,12 @@ class VStruct(vs_bases.v_base,object):
         self._vs_fields = {}
         self._vs_fieldorder = []
 
+        # from a tiny bit of evil from vstruct1
+        self._vs_name = self.__class__.__name__
+
+    def vsGetTypeName(self):
+        return self._vs_name
+
     def __iter__(self):
         for name in self._vs_fieldorder:
             yield ( name, self._vs_fields.get(name) )
@@ -133,6 +139,22 @@ class VStruct(vs_bases.v_base,object):
         off,field = prims[-1]
         return off + field.vsSize()
 
+    def vsGetField(self, name):
+        x = self._vs_fields.get(name)
+        if x == None:
+            raise Exception("Invalid field: %s" % name)
+        return x
+
+    def vsHasField(self, name):
+        '''
+        Test whether this structure contains a field with the
+        given name....
+        Example:
+        if x.vsHasField('woot'):
+            print 'STRUCT HAS WOOT FIELD!'
+        '''
+        return self._vs_fields.get(name) != None
+
     def _prim_getval(self):
         return self
 
@@ -190,12 +212,25 @@ class VArray(VStruct):
         for i,f in enumerate(fields):
             self[i] = f
 
+    def vsAddElement(self, elem):
+        """
+        Used to add elements to an array
+        """
+        new_idx = len(self._vs_fields)
+        self[new_idx] = elem
+
+    def vsAddElements(self, count, eclass):
+        for i in xrange(count):
+            self.vsAddElement(eclass())
+
 class vbytes(vs_bases.v_prim):
     '''
     Fixed width binary bytes field.
     '''
-    def __init__(self, size=0):
-        vs_bases.v_prim.__init__(self, size=size, valu=b'')
+    def __init__(self, size=0,val=b''):
+        vs_bases.v_prim.__init__(self, size=size,valu=val)
+        self._vs_value  = val
+        self._vs_length = size
 
     def _prim_emit(self, x):
         return x.ljust(self.vsSize(), b'\x00')
@@ -205,6 +240,8 @@ class vbytes(vs_bases.v_prim):
 
     def _prim_parse(self, byts, offset):
         return bytes( byts[offset:offset + self.vsSize() ] )
+
+    ## FIXME - may need to add function to update length whenever valu is changed?
 
 class cstr(vs_bases.v_prim):
     '''
